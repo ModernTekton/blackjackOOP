@@ -65,7 +65,7 @@ class Hand
   end
 
   # Here are the main game play methods
-  class Game_play
+  class GamePlay
     attr_accessor :cards, :deck, :hand, :player, :dealer
 
     def initialize
