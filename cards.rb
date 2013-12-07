@@ -26,14 +26,14 @@ end
 class Hand
   attr_accessor :deck, :cards
 
-  def initialize(h)
+  def initialize(hand)
     2.times do
-      h << deck.pop
+      hand << deck.pop
     end
   end
 
   def calculate_total
-    h = cards.map { |e| e[v] }
+    hand = cards.map { |e| e[v] }
     total = 0
     arr.each do |value|
       if value == "A"
@@ -49,8 +49,8 @@ class Hand
   class Player
     attr_accessor :deck, :cards, :hand
 
-    def initialize(n)
-      @name = n
+    def initialize(name)
+      @name = name
       @cards = Array.new
     end
   end
@@ -59,7 +59,7 @@ class Hand
     attr_accessor :deck, :cards, :hand
 
     def initialize
-      @name = "Dealer"
+      @dealer_name = "Dealer"
       @cards = Array.new
     end
   end
