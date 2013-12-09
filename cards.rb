@@ -22,15 +22,17 @@ class Deck
   end
 end
 
-# Setup the initial hand and values.  Should shuffle be here instead?
+# Setup the initial hand and values.
 class Hand
   attr_accessor :deck, :cards
 
-  def initialize(hand)
+  def hand
     2.times do
       hand << deck.pop
+      puts "Your cards are #{total}"
     end
   end
+
 
   def calculate_total
     hand = cards.map { |e| e[v] }
@@ -45,48 +47,72 @@ class Hand
       end
     end
   end
+end
 
-  class Player
-    attr_accessor :deck, :cards, :hand
+class Player
+  attr_accessor :deck, :cards, :hand
 
-    def initialize(name)
-      @name = name
-      @cards = Array.new
-    end
-  end
-
-  class Dealer
-    attr_accessor :deck, :cards, :hand
-
-    def initialize
-      @dealer_name = "Dealer"
-      @cards = Array.new
-    end
-  end
-
-  # Here are the main game play methods
-  class GamePlay
-    attr_accessor :cards, :deck, :hand, :player, :dealer
-
-    def initialize
-      # not sure...
-    end
-
-    def hit_me(new_card)
-      cards << new_card
-    end
-
-    def stay
-      cards != new_card
-    end
-
-    def blackjack_total
-      blackjack_total = 21
-    end
-
-    def bust_total
-      bust_total > 21
-    end
-
+  def initialize(name)
+    @name = name
+    @cards = Array.new
+    put "My cards are #{cards}"
   end
 end
+
+class Dealer
+  attr_accessor :deck, :cards, :hand
+
+  def initialize
+    @dealer_name = 'Dealer'
+    @cards = Array.new
+  end
+end
+
+# Here are the main game play methods
+class GamePlay
+  attr_accessor :cards, :deck, :hand, :player, :dealer
+
+def initialize
+    @hand = Hand
+    @player = Player
+    @dealer = Dealer
+end
+
+  def intro
+    puts ""
+    puts "=> Welcome to Ruby Casino.  Let's play Blackjack."
+    puts ""
+    puts "What's your name?"
+    name = gets.chomp.capitalize
+    puts "Hey there, #{name}! Would you like to play a game of blackjack? Press Any Key to continue"
+    play = gets.chomp
+    if play == ""
+      puts "Ok, the Dealer is ready to deal!"
+    end
+  end
+
+  def hit_me(new_card)
+    cards << new_card
+  end
+
+  def stay
+    cards != new_card
+  end
+
+  def blackjack_total
+    blackjack_total = 21
+  end
+
+  def bust_total
+    bust_total > 21
+  end
+
+  def run
+    intro
+    hand
+    player
+  end
+end
+
+lets_play = GamePlay.new
+lets_play.run
